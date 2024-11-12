@@ -3,7 +3,7 @@ import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import React, { useState } from "react";
 import { interpretDream } from "@/service/AiModal";
 import { useToast } from "@/hooks/use-toast";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 // import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function DreamForm() {
@@ -12,6 +12,7 @@ function DreamForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const t = useTranslations();
+  const locale = useLocale(); // Aktif dil alınır
 
   const handleKeywordsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -33,11 +34,10 @@ function DreamForm() {
     try {
       setIsLoading(true);
       
-      // Gemini AI'dan yorumu al
-      const interpretation = await interpretDream(dreamTxt, keywords);
-      console.log("interpretation ciktiiii",interpretation);
-
-      // MongoDB'ye kaydet
+      const interpretation = await interpretDream(dreamTxt, keywords, locale);
+      console.log("Yorumlama sonucu:", interpretation);
+      
+      
       const response = await fetch('/api/route', {
         method: 'POST',
         headers: {
@@ -51,8 +51,10 @@ function DreamForm() {
         }),
       });
       
-      setDreamTxt("");
-      setKeywords([]);
+      console.log("RESPONSE", response);
+
+      // setDreamTxt("");
+      // setKeywords([]);
       
       if (!response.ok) {
         throw new Error('Rüya kaydedilemedi');

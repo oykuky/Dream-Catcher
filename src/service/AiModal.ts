@@ -4,10 +4,10 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI  = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_API_KEY as string );
 
 
-export async function interpretDream(dreamText: string, keywords: string[]) {
+export async function interpretDream(dreamText: string, keywords: string[], language:string) {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const prompt = `Please interpret the following dream and provide a detailed analysis in JSON format:
+  const prompt = `${language === "tr" ? "Lütfen aşağıdaki rüyayı yorumlayın ve detaylı bir analiz sağlayın (Türkçe):" : "Please interpret the following dream and provide a detailed analysis:"}
 
 Dream Content: ${dreamText}
 Keywords: ${keywords.join(', ')}
@@ -28,9 +28,14 @@ Please provide the interpretation in the following JSON structure:
 }`;
 
   const result = await model.generateContent(prompt);
-  console.log(result.response.text());
   const response = await result.response;
-  const interpretation = response.text();
-  console.log('JSON öncesi yorum',interpretation)
-  return JSON.parse(interpretation);
+  let interpretation = await response.text();
+  interpretation = interpretation.replace(/```json|```/g, '').trim(); //yanıtın sadece JSON kısmı alınması içinn
+
+  try {
+    return JSON.parse(interpretation); 
+  } catch (error) {
+    console.error("JSON ayrıştırma hatası:", error);
+    throw new Error("AI yanıtı beklenen JSON formatında değil.");
+  }
 }
