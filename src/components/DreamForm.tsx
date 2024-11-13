@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { interpretDream } from "@/service/AiModal";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+
 // import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function DreamForm() {
@@ -13,6 +15,7 @@ function DreamForm() {
   const { toast } = useToast();
   const t = useTranslations();
   const locale = useLocale(); // Aktif dil alınır
+  const router = useRouter();
 
   const handleKeywordsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -35,7 +38,7 @@ function DreamForm() {
       setIsLoading(true);
       
       const interpretation = await interpretDream(dreamTxt, keywords, locale);
-      console.log("Yorumlama sonucu:", interpretation);
+      // console.log("Yorumlama sonucu:", interpretation);
       
       
       const response = await fetch('/api/dreamApi', {
@@ -56,8 +59,8 @@ function DreamForm() {
       
       console.log("RESPONSE", response);
 
-      // setDreamTxt("");
-      // setKeywords([]);
+      setDreamTxt("");
+      setKeywords([]);
       
       if (!response.ok) {
         throw new Error('Rüya kaydedilemedi');
@@ -67,7 +70,8 @@ function DreamForm() {
         title: "Başarılı!",
         description: "Rüyanız yorumlandı ve kaydedildi.",
       });
-      
+
+      router.push(`${locale}/dreamLibrariy`)
     } catch (error) {
       console.error('Error:', error);
       toast({
