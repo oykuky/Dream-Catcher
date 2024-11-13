@@ -8,8 +8,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("reqqq method",req.method)
-  console.log("reqqq BODYYYYYY",req.body)
   if (req.method === "POST") {
     try {
       await connectToDb();
