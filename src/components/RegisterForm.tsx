@@ -6,8 +6,8 @@ import React from "react";
 function RegisterForm() {
   const t = useTranslations();
   return (
-    <div className="w-full flex items-center justify-center">
-      <form className="flex flex-col gap-5 w-full px-20">
+    <div className="w-full  flex items-center justify-center">
+      <form className="flex flex-col gap-5  w-full">
         <BlurIn
           word={t("register.title")}
           className="text-white dark:text-pink-700"
