@@ -30,7 +30,7 @@ function DreamForm() {
       });
       return;
     }
-    console.log("yorumlama öncesi satırrrr")
+  
     try {
       setIsLoading(true);
       
@@ -38,7 +38,7 @@ function DreamForm() {
       console.log("Yorumlama sonucu:", interpretation);
       
       
-      const response = await fetch('/api/route', {
+      const response = await fetch('/api/dreamApi', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,8 +46,11 @@ function DreamForm() {
         body: JSON.stringify({
           content: dreamTxt,
           keywords: keywords,
-          interpretation: interpretation,
+          interpretation: interpretation.generalInterpretation,
           mood: interpretation.mood,
+          emotionalAnalysis: interpretation.emotionalAnalysis,
+          practicalAdvice: interpretation.practicalAdvice,
+          symbols: interpretation.symbols
         }),
       });
       
