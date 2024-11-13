@@ -1,7 +1,5 @@
 "use client";
-
 import BlurIn from "@/components/ui/blur-in";
-import { useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
@@ -10,7 +8,7 @@ function LoginForm() {
   const t = useTranslations();
   return (
     <div className="w-full flex items-center justify-center">
-      <form className="flex flex-col gap-8">
+      <form className="flex flex-col gap-5 w-full">
         <BlurIn
           word={t("login.title")}
           className="text-white dark:text-pink-700"
@@ -37,7 +35,7 @@ function LoginForm() {
         />
         <button
           type="submit"
-          className="text-white rounded-lg text-md font-semibold px-5 py-3 mt-12 text-center bg-gray-950 border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-pink-700 duration-300 transition ease-in-out"
+          className="text-white rounded-lg text-md font-semibold py-3 text-center bg-gray-950 border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-pink-700 duration-300 transition ease-in-out"
         >
           {t("login.button")}
         </button>
