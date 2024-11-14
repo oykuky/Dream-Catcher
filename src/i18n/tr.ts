@@ -33,6 +33,14 @@ dreamform: {
     haveAccQ: "Hesabınız var mı?",
     span: "Giriş yap",
   },
+  dreamLibrary:{
+    mydreamsTitle: "Rüyalarım",
+    cardContent: "Rüya İçeriği",
+    cardKeywords: "Anahtar Kelimeler",
+    cardMood: "Ruh Hali",
+    cardSymbols: "Semboller",
+    cardMeanings: "Anlam"
+  },
 };
 
 export type LocalizationKeys = typeof tr;

@@ -35,6 +35,14 @@ const en:LocalizationKeys = {
     haveAccQ: "Do you have an account?",
     span: "Sign in",
   },
+  dreamLibrary:{
+    mydreamsTitle: "My dreams",
+    cardContent: "Dream Content",
+    cardKeywords: "Keywords",
+    cardMood: "mood",
+    cardSymbols: "Symbols",
+    cardMeanings: "Meaning"
+  },
   };
   
   export default en;

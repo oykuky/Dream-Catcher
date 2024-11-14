@@ -15,8 +15,8 @@ export interface IntDream {
 function DreamLibrary() {
   //Fetch dreams func. yaz
   const dream: IntDream = {
-    content: "Arkadaşlarımla sahil kenarına eğlenceli bir piknik yapıyorduk.",
-    keywords: ["deniz","kum"],
+    content: "Arkadaşlarımla sahil kenarına eğlenceli bir piknik yapıyorduk.Arkadaşlarımla sahil kenarına eğlenceli bir piknik yapıyorduk.Arkadaşlarımla sahil kenarına eğlenceli bir piknik yapıyorduk.",
+    keywords: ["deniz","kum","sky"],
     interpretation:
       "This dream symbolizes a period of joy, relaxation, and connection with loved ones. It suggests a need for escape from daily stresses and a desire for carefree fun and camaraderie.",
     mood: "The overall mood of the dream is positive, joyful, and carefree. It suggests a period of peace and contentment.",
@@ -46,7 +46,9 @@ function DreamLibrary() {
           </div>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="flex flex-wrap justify-center gap-9">
+        <DreamCard dream={dream} />
+        <DreamCard dream={dream} />
         <DreamCard dream={dream} />
         <DreamCard dream={dream} />
         <DreamCard dream={dream} />
