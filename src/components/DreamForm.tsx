@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
-// import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 
 function DreamForm() {
   const [keywords, setKeywords] = useState<string[]>([]);
@@ -36,11 +36,8 @@ function DreamForm() {
   
     try {
       setIsLoading(true);
-      
       const interpretation = await interpretDream(dreamTxt, keywords, locale);
-      // console.log("Yorumlama sonucu:", interpretation);
-      
-      
+
       const response = await fetch('/api/dreamApi', {
         method: 'POST',
         headers: {
@@ -83,12 +80,6 @@ function DreamForm() {
     }
   };
 
-//   <div className="flex justify-center items-center mt-10">
-//   <div className="loader">
-//    <AiOutlineLoading3Quarters className="animate-spin text-4xl"/>
-//   </div>
-// </div> 
-
   return (
     <>
      <NeonGradientCard className="hover:scale-105 transition duration-300 max-w-2xl h-[580px] flex items-center justify-center text-center mt-12">
@@ -118,7 +109,6 @@ function DreamForm() {
             className="text-white rounded-xl text-md font-semibold px-5 py-3 mt-12 text-center bg-transparent border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-violet-900 duration-300 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? t("dreamform.buttonLoading") : t("dreamform.button") }
-            {/* {isLoading ? "Yorumlanıyor..." : "Rüyayı Yorumla"} */}
           </button>
         </form>
       </NeonGradientCard>

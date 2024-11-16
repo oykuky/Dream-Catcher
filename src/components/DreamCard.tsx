@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { IntDream } from "@/app/[locale]/dreamLibrary/page";
+
+
 
 interface DreamCardProps {
   dream: IntDream;
@@ -10,7 +12,7 @@ interface DreamCardProps {
 const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
   const t = useTranslations();
   return (
-    <div className="flex flex-col w-[30rem] bg-transparent rounded-2xl p-5 gap-4 border-[0.2rem] border-purple-700 shadow-md hover:shadow-2xl shadow-purple-400 hover:shadow-neonPink  hover:scale-105 duration-500 cursor-pointer">
+    <div className="flex flex-col w-[30rem] mr-3 bg-transparent rounded-2xl p-5 gap-4 border-[0.2rem] border-purple-700 shadow-md hover:shadow-2xl shadow-purple-400 hover:shadow-neonPink  hover:scale-105 duration-500 cursor-pointer">
       <h2 className="justify-center flex font-semibold text-xl text-darkPink line-clamp-4">
         ‧˚☾ ☁️⋅˚‧{" "}
         <h1 className="font-bold text-2xl px-2 text-white"> {t("dreamLibrary.cardContent")} </h1>{" "}

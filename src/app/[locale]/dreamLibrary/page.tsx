@@ -2,12 +2,24 @@
 import { useEffect, useState } from "react";
 import DreamCard from "@/components/DreamCard";
 import SparklesText from "@/components/ui/sparkles-text";
-import { IDream } from "@/lib/models";
+import { FaSpinner } from "react-icons/fa";
+import { TbHomeStar } from "react-icons/tb";
+import { useRouter } from "next/navigation";
+
+export interface IntDream {
+  content: string;
+  keywords: string[];
+  interpretation: string;
+  mood?: string;
+  emotionalAnalysis: string;
+  practicalAdvice: string;
+  symbols: { symbol: string; meaning: string }[];
+}
 
 export default function DreamLibrary() {
-  const [dreams, setDreams] = useState<IDream[]>([]);
+  const [dreams, setDreams] = useState<IntDream[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   async function fetchDreams() {
     try {
@@ -25,7 +37,6 @@ export default function DreamLibrary() {
       const data = await response.json();
       setDreams(data);
     } catch (err) {
-      setError("Rüyalar yüklenirken bir hata oluştu");
       console.error("Hata:", err);
     } finally {
       setLoading(false);
@@ -36,24 +47,29 @@ export default function DreamLibrary() {
     fetchDreams();
   }, []);
 
-  if (error) return <div>{error}</div>;
-
   return (
-    <div className="flex flex-col items-center min-h-screen gap-12 p-4">
-      <div className="bg-transparent flex justify-center items-center w-full max-w-2xl h-20 rounded-2xl border-[4px] mt-5 mb-10 border-violet-500">
+    <div className="flex flex-col items-center min-h-screen gap-6 p-4">
+      <button
+        onClick={() => router.push("/")}
+        className=" text-neonPink text-4xl cursor-pointer rounded-full bg-white p-2 hover:shadow-pink-700 hover:shadow-lg"
+      >
+        <TbHomeStar />
+      </button>
+      <div className="bg-transparent flex justify-center items-center w-full max-w-2xl h-20 rounded-2xl border-[4px] mb-10 border-violet-500">
         <div className="flex justify-center items-center my-5">
           <SparklesText text="Rüyalarım" />
         </div>
       </div>
-
-      <div className="flex flex-wrap justify-center gap-9">
-        {dreams.map((dream, index) => (
-          <DreamCard key={index} dream={dream} />
-        ))}
-      </div>
-
-      {dreams.length === 0 && (
-        <div className="text-center text-red-500">Rüya bulunamadı</div>
+      {loading ? (
+        <div className="animate-spin text-neonPink text-5xl">
+          <FaSpinner />
+        </div>
+      ) : (
+        <div className="flex flex-wrap justify-center gap-9">
+          {dreams.map((dream, index) => (
+            <DreamCard key={index} dream={dream} />
+          ))}
+        </div>
       )}
     </div>
   );
