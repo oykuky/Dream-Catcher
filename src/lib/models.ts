@@ -44,8 +44,8 @@ const UserSchema: Schema = new Schema({
   dreams: { type: [DreamSchema], default: [] },
 });
 
-const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
-const Dream = mongoose.models.Dream || mongoose.model<IDream>("Dream", DreamSchema);
+const User = mongoose.models?.User || mongoose.model<IUser>("User", UserSchema);
+const Dream = mongoose.models?.Dream || mongoose.model<IDream>("Dream", DreamSchema);
 
 export { User, Dream };
 

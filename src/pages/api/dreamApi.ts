@@ -8,6 +8,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
   if (req.method === "POST") {
     try {
       await connectToDb();
@@ -47,43 +48,5 @@ export default async function handler(
   } else {
     return res.status(500).json({ error: "Yanlıs istek." });
   }
+
 }
-
-//   try {
-//     await connectToDb();
-
-//     const session = await getSession({ req });
-//     if (!session) {
-//         console.log('Unauthorized')
-//       return res.status(401).json({ message: 'Unauthorized' });
-//     }
-
-//     const {
-//       content,
-//       keywords,
-//       interpretation,
-//       mood,
-//       emotionalAnalysis,
-//       practicalAdvice,
-//       symbols,
-//     } = req.body;
-
-//     const dream = await Dream.create({
-//         userId: session.user.id,
-
-//       content,
-//       keywords,
-//       interpretation,
-//       mood,
-//       emotionalAnalysis,
-//       practicalAdvice,
-//       symbols,
-//       createdAt: new Date(),
-//     });
-
-//     res.status(201).json(dream);
-//   } catch (error) {
-//     console.error("Error saving dream:", error);
-//     res.status(500).json({ message: "Error saving dream" });
-//   }
-// } }

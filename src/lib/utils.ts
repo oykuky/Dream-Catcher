@@ -6,7 +6,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-
 const connectToDb  = async () => {
   if (mongoose.connection.readyState >= 1) {
     console.log("using existing connection");
@@ -22,4 +21,3 @@ const connectToDb  = async () => {
 };
 
 export default connectToDb ;
-

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { IntDream } from "@/app/[locale]/dreamLibrariy/page";
+import { IntDream } from "@/app/[locale]/dreamLibrary/page";
 
 interface DreamCardProps {
   dream: IntDream;
@@ -11,15 +11,15 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
   const t = useTranslations();
   return (
     <div className="flex flex-col w-[30rem] bg-transparent rounded-2xl p-5 gap-4 border-[0.2rem] border-purple-700 shadow-md hover:shadow-2xl shadow-purple-400 hover:shadow-neonPink  hover:scale-105 duration-500 cursor-pointer">
-      <h1 className="justify-center flex font-semibold text-xl text-darkPink line-clamp-4">
+      <h2 className="justify-center flex font-semibold text-xl text-darkPink line-clamp-4">
         ‧˚☾ ☁️⋅˚‧{" "}
         <h1 className="font-bold text-2xl px-2 text-white"> {t("dreamLibrary.cardContent")} </h1>{" "}
         ‧˚⋅☁️ ☾˚
-      </h1>
+      </h2>
       <h2 className="line-clamp-2">{dream.content}</h2>
 
       <div className="space-y-3">
-        <h1 className="underline font-semibold text-xl shadow-md w-fit border-none">
+        <h1 className="font-semibold text-xl shadow-md w-fit border-none">
           {t("dreamLibrary.cardKeywords")}
         </h1>
 
@@ -34,10 +34,10 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
         </div>
       </div>
 
-      <h2 className="underline font-semibold text-xl">{t("dreamLibrary.cardMood")}</h2>
+      <h2 className="font-semibold text-xl">{t("dreamLibrary.cardMood")}</h2>
       <p className="line-clamp-1">{dream.mood}</p>
 
-      <h3 className="underline text-xl font-semibold ">{t("dreamLibrary.cardSymbols")}</h3>
+      <h3 className="text-xl font-semibold ">{t("dreamLibrary.cardSymbols")}</h3>
       <div className="space-y-3">
         {dream.symbols.map(
           (symbol: { symbol: string; meaning: string }, index: number) => (

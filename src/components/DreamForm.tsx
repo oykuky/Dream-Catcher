@@ -57,7 +57,6 @@ function DreamForm() {
         }),
       });
       
-      console.log("RESPONSE", response);
 
       setDreamTxt("");
       setKeywords([]);
@@ -71,7 +70,7 @@ function DreamForm() {
         description: "Rüyanız yorumlandı ve kaydedildi.",
       });
 
-      router.push(`${locale}/dreamLibrariy`)
+      router.push(`${locale}/dreamLibrary`)
     } catch (error) {
       console.error('Error:', error);
       toast({
