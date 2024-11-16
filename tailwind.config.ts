@@ -6,9 +6,8 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-			neonYellow:'#FFF338',
-			neonBlue:'#39B5E0',
 			darkLila:'#4F1787',
+			neonBlue:'#39B5E0',
 			darkPink:'#EB3678',
 			lightPink:'#FF0080',
             neonPink:'#FF004D',
