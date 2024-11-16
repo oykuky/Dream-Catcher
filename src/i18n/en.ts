@@ -11,6 +11,9 @@ const en:LocalizationKeys = {
     toastTitle:"Error",
     toastDesc:"Please enter your dream and at least one keyword.",
   },
+  header:{
+    mydreams:"My Dreams",
+  },
   login:{
     title:"Login",
     labelName:"Username",
@@ -39,7 +42,7 @@ const en:LocalizationKeys = {
     mydreamsTitle: "My dreams",
     cardContent: "Dream Content",
     cardKeywords: "Keywords",
-    cardMood: "mood",
+    cardMood: "Mood",
     cardSymbols: "Symbols",
     cardMeanings: "Meaning"
   },

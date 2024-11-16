@@ -9,6 +9,9 @@ dreamform: {
     toastTitle:"Hata",
     toastDesc:"Lütfen rüyanızı ve en az bir anahtar kelime girin.",
   },
+  header:{
+    mydreams:"Rüyalarım"
+  },
   login:{
     title:"Giriş Yap",
     labelName:"Kullanıcı Adı",
