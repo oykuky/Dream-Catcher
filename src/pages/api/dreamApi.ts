@@ -19,6 +19,7 @@ export default async function handler(
       // }
 
       const {
+        slug,
         content,
         keywords,
         interpretation,
@@ -30,6 +31,7 @@ export default async function handler(
 
       const dream = await Dream.create({
         // userId: session.user.id, 
+        slug,
         userId: new mongoose.Types.ObjectId(), //geçiçi oturum işlemleri tamamlanana kadar
         content,
         keywords,
