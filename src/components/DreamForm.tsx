@@ -5,6 +5,7 @@ import { interpretDream } from "@/service/AiModal";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import slugify from "slugify";
 
 
 
@@ -37,6 +38,7 @@ function DreamForm() {
     try {
       setIsLoading(true);
       const interpretation = await interpretDream(dreamTxt, keywords, locale);
+      const slug = slugify(dreamTxt.substring(0, 30), { lower: true, strict: true }) + "-" + Date.now();
 
       const response = await fetch('/api/dreamApi', {
         method: 'POST',
@@ -44,6 +46,7 @@ function DreamForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          slug,
           content: dreamTxt,
           keywords: keywords,
           interpretation: interpretation.generalInterpretation,

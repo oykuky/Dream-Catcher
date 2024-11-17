@@ -7,7 +7,7 @@ import { TbHomeStar } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 
 export interface IntDream {
-  _id:number,
+  slug:string;
   content: string;
   keywords: string[];
   interpretation: string;

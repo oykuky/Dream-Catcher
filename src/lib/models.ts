@@ -8,7 +8,7 @@ export interface IUser extends Document {
   dreams: IDream[];
 }
 export interface IDream extends Document {
-  id:number,
+  slug:string,
   userId: string;
   content: string;
   keywords: string[];
@@ -21,7 +21,7 @@ export interface IDream extends Document {
 }
 
 const DreamSchema: Schema = new Schema({
-  id:{type: Number, unique:true},
+  slug:{type: String, unique:true},
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   content: { type: String, required: true },
   keywords: { type: [String], required: true },

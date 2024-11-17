@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 export interface IntDream {
-  _id: number;
+  slug:string;
   content: string;
   keywords: string[];
   interpretation: string;
@@ -12,11 +12,11 @@ export interface IntDream {
   symbols: { symbol: string; meaning: string }[];
 }
 
-export default function Dream({ params }: { params: { slug: number } }) {
+export default function Dream({ params }: { params: { slug: string } }) {
   const [loading, setLoading] = useState(true);
   const [dream, setDream] = useState<IntDream | null>(null);
 
-  async function fetchDream(slug: number) {
+  async function fetchDream(slug: string) {
     try {
       const response = await fetch(`/api/getSlug?slug=${slug}`, {
         method: "GET",
