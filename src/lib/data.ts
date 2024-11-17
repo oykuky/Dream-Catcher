@@ -13,3 +13,16 @@ export const getDreams = async () => {
     throw err;
   }
 };
+
+export const getDream = async (slug:number) => {
+  try {
+    console.log("Veritabanına bağlanılıyor...");
+    await connectToDb();
+    console.log("Veritabanına bağlandı, rüya çekiliyor...");
+    const dream = await Dream.findOne({ slug });
+    return dream;
+  } catch (err) {
+    console.error("Rüyayı çekerken hata oluştu:", err);
+    throw err;
+  }
+};

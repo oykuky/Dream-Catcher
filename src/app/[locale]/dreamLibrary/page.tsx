@@ -7,6 +7,7 @@ import { TbHomeStar } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 
 export interface IntDream {
+  _id:number,
   content: string;
   keywords: string[];
   interpretation: string;
@@ -66,7 +67,7 @@ export default function DreamLibrary() {
         </div>
       ) : (
         <div className="flex flex-wrap justify-center gap-9">
-          {dreams.map((dream, index) => (
+          {dreams.map((dream, index:number) => (
             <DreamCard key={index} dream={dream} />
           ))}
         </div>
