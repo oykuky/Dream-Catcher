@@ -8,14 +8,13 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const { slug } = req.query;
-      console.log("SLUGGG in handler",slug)
       if (!slug) {
-        return res.status(400).json({ error: "Slug gerekli" });
+        return res.status(400).json({ error: "Necessary Slug" });
       }
 
       const dream = await getDream(String(slug)); 
       if (!dream) {
-        return res.status(404).json({ error: "Rüya bulunamadı" });
+        return res.status(404).json({ error: "Dream not Found" });
       }
 
       res.status(200).json(dream);

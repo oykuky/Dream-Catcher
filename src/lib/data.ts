@@ -3,27 +3,26 @@ import connectToDb from "./utils";
 
 export const getDreams = async () => {
   try {
-    console.log("Veritabanına bağlanılıyor...");
+    console.log("Connecting to database...");
     await connectToDb();
-    console.log("Veritabanına bağlandı, rüyalar çekiliyor...");
+    console.log("Connected to the database, dreams are fetched...");
     const dreams = await Dream.find();
     return dreams;
   } catch (err) {
-    console.error("Rüyaları çekerken hata oluştu:", err);
+    console.error("Error occurred while fetching dreams:", err);
     throw err;
   }
 };
 
 export const getDream = async (slug:string) => {
   try {
-    console.log("Veritabanına bağlanılıyor...");
+    console.log("Connecting to database...");
     await connectToDb();
-    console.log("Veritabanına bağlandı, rüya çekiliyor...");
+    console.log("Connected to the database, dream are fetched...");
     const dream = await Dream.findOne({ slug });
-    console.log("dream in get Dream functionnnnnn",dream);
     return dream;
   } catch (err) {
-    console.error("Rüyayı çekerken hata oluştu:", err);
+    console.error("Error occurred while fetching dream:", err);
     throw err;
   }
 };
