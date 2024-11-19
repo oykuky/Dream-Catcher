@@ -62,12 +62,12 @@ function DreamForm() {
       setKeywords([]);
       
       if (!response.ok) {
-        throw new Error('Rüya kaydedilemedi');
+        throw new Error('the dream could not be recorded');
       }
 
       toast({
-        title: "Başarılı!",
-        description: "Rüyanız yorumlandı ve kaydedildi.",
+        title: "Success!",
+        description: "Your dream interpreted and recorded.",
       });
 
       router.push(`${locale}/dreamLibrary`)

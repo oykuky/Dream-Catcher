@@ -1,8 +1,10 @@
 "use client";
+import DreamDetail from "@/components/DreamDetail";
 import { useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
 
 export interface IntDream {
-  slug:string;
+  slug: string;
   content: string;
   keywords: string[];
   interpretation: string;
@@ -16,6 +18,7 @@ export default function Dream({ params }: { params: { slug: string } }) {
   const [loading, setLoading] = useState(true);
   const [dream, setDream] = useState<IntDream | null>(null);
 
+
   async function fetchDream(slug: string) {
     try {
       const response = await fetch(`/api/getSlug?slug=${slug}`, {
@@ -26,9 +29,9 @@ export default function Dream({ params }: { params: { slug: string } }) {
       });
 
       if (!response.ok) {
-        throw new Error("Rüya getirilemedi");
+        throw new Error("Dream not fetching");
       }
-      const data = await response.json();
+      const data : IntDream = await response.json();
       setDream(data);
     } catch (err) {
       console.error("Hata:", err);
@@ -43,20 +46,19 @@ export default function Dream({ params }: { params: { slug: string } }) {
     }
   }, [params.slug]);
 
-  if (loading) return <div>Yükleniyor...</div>;
+ 
 
   return (
-    <div>
-      <h1>Rüya Detayları</h1>
-      {dream ? (
-        <div>
-          <p><strong>İçerik:</strong> {dream.content}</p>
-          <p><strong>Yorum:</strong> {dream.interpretation}</p>
-        </div>
-      ) : (
-        <p>Rüya bulunamadı.</p>
-      )}
-    </div>
+    <div className="flex flex-col h-screen">
+    {loading ? (
+      <div className="animate-spin text-neonPink text-4xl">
+        <FaSpinner />
+      </div>
+    ) : dream ? (
+      <DreamDetail dream={dream} />
+    ) : (
+      <div>Dream not found</div>
+    )}
+  </div>
   );
 }
-

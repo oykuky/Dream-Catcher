@@ -48,7 +48,7 @@ export default async function handler(
       res.status(500).json({ message: "Error saving dream" });
     }
   } else {
-    return res.status(500).json({ error: "Yanlıs istek." });
+    return res.status(500).json({ error: "Wrong Request." });
   }
 
 }
