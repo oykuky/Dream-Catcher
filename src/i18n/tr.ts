@@ -6,8 +6,10 @@ dreamform: {
     keywordsPlacehld:"Örn: kalp, deniz, ay (virgülle ayırın)",
     buttonLoading:"Yorumlanıyor...",
     button:"Rüyayı Yorumla",
-    toastTitle:"Hata",
-    toastDesc:"Lütfen rüyanızı ve en az bir anahtar kelime girin.",
+    errortoastTitle:"Hata",
+    errortoastDesc:"Lütfen rüyanızı ve en az bir anahtar kelime girin.",
+    sucesstoastTitle:"Başarılı",
+    sucesstoastDesc:"Rüyanız yorumlandı ve kaydedildi.",
   },
   header:{
     mydreams:"Rüyalarım"

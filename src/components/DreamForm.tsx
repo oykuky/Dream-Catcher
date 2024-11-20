@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import React, { useState } from "react";
 import { interpretDream } from "@/service/AiModal";
@@ -6,8 +6,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import slugify from "slugify";
-
-
 
 function DreamForm() {
   const [keywords, setKeywords] = useState<string[]>([]);
@@ -25,7 +23,7 @@ function DreamForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!dreamTxt.trim() || keywords.length === 0) {
       toast({
         title: "Hata",
@@ -34,16 +32,19 @@ function DreamForm() {
       });
       return;
     }
-  
+
     try {
       setIsLoading(true);
       const interpretation = await interpretDream(dreamTxt, keywords, locale);
-      const slug = slugify(dreamTxt.substring(0, 30), { lower: true, strict: true }) + "-" + Date.now();
+      const slug =
+        slugify(dreamTxt.substring(0, 30), { lower: true, strict: true }) +
+        "-" +
+        Date.now();
 
-      const response = await fetch('/api/dreamApi', {
-        method: 'POST',
+      const response = await fetch("/api/dreamApi", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           slug,
@@ -53,29 +54,28 @@ function DreamForm() {
           mood: interpretation.mood,
           emotionalAnalysis: interpretation.emotionalAnalysis,
           practicalAdvice: interpretation.practicalAdvice,
-          symbols: interpretation.symbols
+          symbols: interpretation.symbols,
         }),
       });
-      
 
       setDreamTxt("");
       setKeywords([]);
-      
+
       if (!response.ok) {
-        throw new Error('the dream could not be recorded');
+        throw new Error("the dream could not be recorded");
       }
 
       toast({
-        title: "Success!",
-        description: "Your dream interpreted and recorded.",
+        title: t("dreamform.sucesstoastTitle"),
+        description: t("dreamform.sucesstoastDesc"),
       });
 
-      router.push(`${locale}/dreamLibrary`)
+      router.push(`${locale}/dreamLibrary`);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       toast({
-        title: "Hata",
-        description: "Rüya yorumlanırken bir hata oluştu.",
+        title: t("dreamform.errortoastTitle"),
+        description: t("dreamform.sucesstoastDesc"),
         variant: "destructive",
       });
     } finally {
@@ -85,8 +85,11 @@ function DreamForm() {
 
   return (
     <>
-     <NeonGradientCard className="max-w-2xl h-[40rem] flex items-center justify-center text-center mt-12">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-10 p-2 text-white font-semibold">
+      <NeonGradientCard className="max-w-2xl h-[40rem] flex items-center justify-center text-center mt-12">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-10 p-2 text-white font-semibold"
+        >
           <span className=" text-slate-200 text-center font-semibold">
             {t("dreamform.dreamText")}
           </span>
@@ -111,7 +114,7 @@ function DreamForm() {
             disabled={isLoading}
             className="text-white rounded-xl text-md font-semibold px-5 py-3 mt-12 text-center bg-transparent border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-violet-900 duration-300 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? t("dreamform.buttonLoading") : t("dreamform.button") }
+            {isLoading ? t("dreamform.buttonLoading") : t("dreamform.button")}
           </button>
         </form>
       </NeonGradientCard>

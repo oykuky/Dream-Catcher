@@ -8,8 +8,10 @@ const en:LocalizationKeys = {
     keywordsPlacehld:"Ex: heart, sea, moon (separate with comma)",
     buttonLoading:"Interpreting...",
     button:"Interpret the Dream",
-    toastTitle:"Error",
-    toastDesc:"Please enter your dream and at least one keyword.",
+    errortoastTitle:"Error",
+    errortoastDesc:"Please enter your dream and at least one keyword.",
+    sucesstoastTitle:"Success!",
+    sucesstoastDesc:"Your dream interpreted and recorded.",
   },
   header:{
     mydreams:"My Dreams",
