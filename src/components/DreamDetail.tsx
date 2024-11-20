@@ -1,117 +1,3 @@
-// "use client";
-// import { IntDream } from "@/app/[locale]/dreamLibrary/[slug]/page";
-// import { useTranslations } from "next-intl";
-// import { useRouter } from "next/navigation";
-// import React from "react";
-// import { TbHomeStar } from "react-icons/tb";
-// import { IoIosArrowBack } from "react-icons/io";
-
-// interface DreamCardProps {
-//   dream: IntDream;
-// }
-
-// const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
-//   const t = useTranslations();
-//   const router = useRouter();
-
-//   return (
-//     <div className="min-h-screen flex flex-col items-center gap-5 p-2 text-white overflow-y-auto">
-//       <div className="flex justify-between w-full">
-//         <button
-//           onClick={() => router.push("/dreamLibrary")}
-//           className="text-neonPink hover:scale-105 duration-300 flex items-center text-4xl w-12 h-12 cursor-pointer rounded-full bg-white p-2 hover:shadow-pink-700 hover:shadow-lg"
-//         >
-//           <IoIosArrowBack />
-//         </button>
-//         <button
-//           onClick={() => router.push("/")}
-//           className="text-neonPink hover:scale-105 duration-300 flex items-center text-4xl w-12 h-12 cursor-pointer rounded-full bg-white p-2 hover:shadow-pink-700 hover:shadow-lg"
-//         >
-//           <TbHomeStar />
-//         </button>
-//       </div>
-
-//       <div className="flex flex-col gap-4 w-full max-w-7xl">
-//         <h1 className="text-center font-bold text-4xl text-white">
-//           {t("dreamLibrary.cardContent")}
-//         </h1>
-//         <p className="text-gray-200 font-medium  text-lg ">{dream.content}</p>
-
-//         <h3 className="font-semibold text-2xl text-white">
-//           {t("dreamLibrary.interpretation")}
-//         </h3>
-//         <p className="text-gray-200 font-medium  text-lg">
-//           {dream.interpretation}
-//         </p>
-
-//         <div className="flex justify-between gap-6">
-//           <div className="flex flex-col p-6 my-4 rounded-2xl bg-pink-800 shadow-xl shadow-darkPink">
-//             <h3 className="font-semibold text-2xl text-white">
-//               {t("dreamLibrary.emotionalAnalysis")}
-//             </h3>
-//             <p className="text-gray-200 font-medium  text-lg">
-//               {dream.emotionalAnalysis}
-//             </p>
-//           </div>
-//           <div className="flex flex-col p-6 my-4 rounded-2xl bg-pink-800 shadow-xl shadow-darkPink">
-//             <h3 className="font-semibold text-2xl text-white">
-//               {t("dreamLibrary.practicalAdvice")}
-//             </h3>
-//             <p className="text-gray-200 font-medium  text-lg">
-//               {dream.practicalAdvice}
-//             </p>
-//           </div>
-//         </div>
-
-//         <div>
-//           <h3 className="font-semibold text-2xl text-white">
-//             {t("dreamLibrary.cardKeywords")}
-//           </h3>
-//           <div className="flex flex-wrap gap-2 mt-2">
-//             {dream.keywords.map((k: string, index: number) => (
-//               <span
-//                 key={index}
-//                 className="px-3 py-1 rounded-full bg-lightPink text-white font-medium text-lg"
-//               >
-//                 {k}
-//               </span>
-//             ))}
-//           </div>
-//         </div>
-
-//         <h3 className="font-semibold text-2xl text-white">
-//           {t("dreamLibrary.cardMood")}
-//         </h3>
-//         <p className="text-gray-200 font-medium text-lg">{dream.mood}</p>
-
-//         <div>
-//           <h3 className="text-2xl font-semibold text-white">
-//             {t("dreamLibrary.cardSymbols")}
-//           </h3>
-//           <div className="grid gap-4 mt-2">
-//             {dream.symbols.map(
-//               (symbol: { symbol: string; meaning: string }, index: number) => (
-//                 <div
-//                   key={index}
-//                   className="rounded-lg border-x-darkPink bg-slate-800 border-y-0 border-[0.2rem] shadow-lg p-4 hover:shadow-darkPink text-white"
-//                 >
-//                   <h4 className="font-bold">{symbol.symbol}</h4>
-//                   <p className="text-gray-200 font-medium mt-1 text-lg">
-//                     {symbol.meaning}
-//                   </p>
-//                 </div>
-//               )
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DreamDetail;
-
-
 'use client'
 
 import { IntDream } from "@/app/[locale]/dreamLibrary/[slug]/page"
@@ -142,7 +28,7 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => router.push("/dreamLibrary")}
-          className="text-pink-300 flex items-center justify-center text-3xl w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
+          className="text-pink-300 flex items-center justify-center text-3xl w-12 h-12 rounded-full bg-black/45 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
         
         >
           <IoIosArrowBack />
@@ -151,7 +37,7 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => router.push("/")}
-          className="text-pink-300 flex items-center justify-center text-3xl w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
+          className="text-pink-300 flex items-center justify-center text-3xl w-12 h-12 rounded-full bg-black/45 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
 
         >
           <TbHomeStar />
@@ -167,12 +53,12 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
           {t("dreamLibrary.cardContent")}
         </motion.h1>
 
-        <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+        <div className="bg-black/45 backdrop-blur-md rounded-lg p-6">
           <h2 className="text-2xl text-pink-200 mb-4">{t("dreamLibrary.cardContent")}</h2>
           <p className="text-gray-200 font-medium text-lg leading-relaxed">{dream.content}</p>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+        <div className="bg-black/45 backdrop-blur-md rounded-lg p-6">
           <h2 className="text-2xl text-pink-200 mb-4">{t("dreamLibrary.interpretation")}</h2>
           <p className="text-gray-200 font-medium text-lg leading-relaxed">{dream.interpretation}</p>
         </div>
@@ -199,7 +85,7 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
           </div>
         </section>
 
-        <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+        <div className="bg-black/45 backdrop-blur-md rounded-lg p-6">
           <h2 className="text-2xl text-pink-200 mb-4">{t("dreamLibrary.cardMood")}</h2>
           <p className="text-gray-200 font-medium text-lg">{dream.mood}</p>
         </div>

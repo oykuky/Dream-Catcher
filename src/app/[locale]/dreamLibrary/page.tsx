@@ -49,14 +49,14 @@ export default function DreamLibrary() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center min-h-screen gap-6 p-4">
+    <div className="flex flex-col items-center min-h-screen gap-6 p-4 bg-gradient-to-tl from-neonPink via-purple-900 to-black">
       <button
         onClick={() => router.push("/")}
         className=" text-neonPink text-4xl cursor-pointer rounded-full bg-white p-2 hover:shadow-pink-700 hover:shadow-lg"
       >
         <TbHomeStar />
       </button>
-      <div className="bg-transparent flex justify-center items-center w-full max-w-2xl h-20 rounded-2xl border-[4px] mb-10 border-violet-500">
+      <div className="bg-transparent flex justify-center items-center w-full max-w-2xl h-20 ">
         <div className="flex justify-center items-center my-5">
           <SparklesText text="Rüyalarım" />
         </div>

@@ -1,68 +1,81 @@
-"use client";
-import React from "react";
-import { useTranslations } from "next-intl";
-import { IntDream } from "@/app/[locale]/dreamLibrary/page";
-import { useRouter } from "next/navigation";
+'use client'
 
-
+import React from "react"
+import { useTranslations } from "next-intl"
+import { IntDream } from "@/app/[locale]/dreamLibrary/page"
+import { useRouter } from "next/navigation"
+import { motion } from "framer-motion"
 
 interface DreamCardProps {
-  dream: IntDream;
+  dream: IntDream
 }
 
 const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
-  const t = useTranslations();
-  const router = useRouter();
+  const t = useTranslations()
+  const router = useRouter()
+
   return (
-    <div onClick={()=>{router.push(`/dreamLibrary/${dream.slug}`)}} className="flex flex-col w-[30rem] mr-3 bg-transparent rounded-2xl p-5 gap-4 border-[0.2rem] border-purple-700 shadow-md hover:shadow-2xl shadow-purple-400 hover:shadow-neonPink  hover:scale-105 duration-500 cursor-pointer">
-      <h2 className="justify-center flex font-semibold text-xl text-darkPink line-clamp-4">
-        ‧˚☾ ☁️⋅˚‧{" "}
-        <h1 className="font-bold text-2xl px-2 text-white"> {t("dreamLibrary.cardContent")} </h1>{" "}
-        ‧˚⋅☁️ ☾˚
-      </h2>
-      <h2 className="line-clamp-2">{dream.content}</h2>
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+      onClick={() => router.push(`/dreamLibrary/${dream.slug}`)}
+      className="flex flex-col w-full max-w-md bg-gray-900  rounded-2xl p-6 gap-4 border-2 border-purple-700 shadow-lg hover:shadow-2xl shadow-purple-400 hover:shadow-neonPink cursor-pointer overflow-hidden"
+    >
+      <div className="text-center space-y-2">
+        <div className="text-darkPink text-lg">✩₊˚.⋆☾☾⋆⁺₊✧</div>
+        <h2 className="font-bold text-2xl text-white">
+          {t("dreamLibrary.cardContent")}
+        </h2>
+      </div>
+
+      <p className="text-gray-200 line-clamp-2">{dream.content}</p>
 
       <div className="space-y-3">
-        <h1 className="font-semibold text-xl shadow-md w-fit border-none">
+        <h3 className="font-semibold text-xl text-pink-300 border-b border-pink-500 pb-1">
           {t("dreamLibrary.cardKeywords")}
-        </h1>
-
-        <div className="flex justify-start">
+        </h3>
+        <div className="flex flex-wrap gap-2">
           {dream.keywords.map((k: string, index: number) => (
-            <div key={index}>
-              <h2 className="w-fit bg-lightPink rounded-full px-2 mx-1 font-medium">
-                {k}
-              </h2>
-            </div>
+            <span
+              key={index}
+              className="bg-lightPink text-purple-900 rounded-full px-3 py-1 text-sm font-medium"
+            >
+              {k}
+            </span>
           ))}
         </div>
       </div>
 
-      <h2 className="font-semibold text-xl">{t("dreamLibrary.cardMood")}</h2>
-      <p className="line-clamp-1">{dream.mood}</p>
-
-      <h3 className="text-xl font-semibold ">{t("dreamLibrary.cardSymbols")}</h3>
-      <div className="space-y-3">
-        {dream.symbols.map(
-          (symbol: { symbol: string; meaning: string }, index: number) => (
-            <div
-              className="rounded-xl bg-darkLila p-3 hover:scale-105 duration-500"
-              key={index}
-            >
-              <h4 className="font-medium w-fit bg-lightPink rounded-full px-3 mb-2">
-                {symbol.symbol}
-              </h4>
-              <p className="text-gray-300 line-clamp-2">
-                <h2 className="text-gray-100">✩ {t("dreamLibrary.cardMeanings")} ✩ </h2>
-                {symbol.meaning}
-              </p>
-            </div>
-          )
-        )}
+      <div>
+        <h3 className="font-semibold text-xl text-pink-300 border-b border-pink-500 pb-1">
+          {t("dreamLibrary.cardMood")}
+        </h3>
+        <p className="text-gray-200 mt-2 line-clamp-1">{dream.mood}</p>
       </div>
-    </div>
-  );
-};
 
-export default DreamCard;
-//✩₊˚.⋆☾☾⋆⁺₊✧ ‧˚☾ ☁️⋅♡⋅˚‧
+      <div>
+        <h3 className="font-semibold text-xl text-pink-300 border-b border-pink-500 pb-1">
+          {t("dreamLibrary.cardSymbols")}
+        </h3>
+        <div className="space-y-3 mt-2">
+          {dream.symbols.map(
+            (symbol: { symbol: string; meaning: string }, index: number) => (
+              <div
+                key={index}
+                className="bg-darkLila rounded-xl p-4 hover:bg-opacity-80 transition-colors duration-300"
+              >
+                <h4 className="font-medium text-lightPink mb-2">{symbol.symbol}</h4>
+                <div className="text-gray-300 line-clamp-2">
+                  <span className="text-gray-100 block mb-1">✩ {t("dreamLibrary.cardMeanings")} ✩</span>
+                  {symbol.meaning}
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+export default DreamCard
