@@ -44,7 +44,10 @@ const en:LocalizationKeys = {
     cardKeywords: "Keywords",
     cardMood: "Mood",
     cardSymbols: "Symbols",
-    cardMeanings: "Meaning"
+    cardMeanings: "Meaning",
+    interpretation:"Interpretation",
+    emotionalAnalysis:"Emotional Analysis",
+    practicalAdvice:"Practical Advice",
   },
   };
   

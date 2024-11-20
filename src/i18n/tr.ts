@@ -42,7 +42,10 @@ dreamform: {
     cardKeywords: "Anahtar Kelimeler",
     cardMood: "Ruh Hali",
     cardSymbols: "Semboller",
-    cardMeanings: "Anlam"
+    cardMeanings: "Anlam",
+    interpretation:"Yorumlama",
+    emotionalAnalysis:"Duygusal Analiz",
+    practicalAdvice:"Pratik Tavsiye",
   },
 };
 
