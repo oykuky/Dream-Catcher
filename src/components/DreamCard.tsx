@@ -19,10 +19,10 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
       onClick={() => router.push(`/dreamLibrary/${dream.slug}`)}
-      className="flex flex-col w-full max-w-md bg-gray-900  rounded-2xl p-6 gap-4 border-2 border-purple-700 shadow-lg hover:shadow-2xl shadow-purple-400 hover:shadow-neonPink cursor-pointer overflow-hidden"
+      className="flex flex-col w-full max-w-md bg-slate-800/50 hover:bg-transparent rounded-2xl p-6 gap-4 shadow-lg hover:shadow-2xl hover:shadow-neonPink cursor-pointer overflow-hidden"
     >
       <div className="text-center space-y-2">
-        <div className="text-darkPink text-lg">✩₊˚.⋆☾☾⋆⁺₊✧</div>
+        <div className="text-darkPink text-lg">✩₊˚.⋆☾⋆⁺₊✧</div>
         <h2 className="font-bold text-2xl text-white">
           {t("dreamLibrary.cardContent")}
         </h2>
@@ -38,7 +38,7 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
           {dream.keywords.map((k: string, index: number) => (
             <span
               key={index}
-              className="bg-lightPink text-purple-900 rounded-full px-3 py-1 text-sm font-medium"
+              className="bg-lightPink text-white rounded-full px-3 py-1 text-sm font-medium"
             >
               {k}
             </span>
@@ -62,7 +62,7 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
             (symbol: { symbol: string; meaning: string }, index: number) => (
               <div
                 key={index}
-                className="bg-darkLila rounded-xl p-4 hover:bg-opacity-80 transition-colors duration-300"
+                className="bg-black/30 rounded-xl p-4 hover:bg-opacity-80 transition-colors duration-300"
               >
                 <h4 className="font-medium text-lightPink mb-2">{symbol.symbol}</h4>
                 <div className="text-gray-300 line-clamp-2">

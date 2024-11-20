@@ -53,12 +53,12 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
           {t("dreamLibrary.cardContent")}
         </motion.h1>
 
-        <div className="bg-black/45 backdrop-blur-md rounded-lg p-6">
+        <div className="bg-slate-800/50 backdrop-blur-md rounded-lg p-6">
           <h2 className="text-2xl text-pink-200 mb-4">{t("dreamLibrary.cardContent")}</h2>
           <p className="text-gray-200 font-medium text-lg leading-relaxed">{dream.content}</p>
         </div>
 
-        <div className="bg-black/45 backdrop-blur-md rounded-lg p-6">
+        <div className="bg-slate-800/50 backdrop-blur-md rounded-lg p-6">
           <h2 className="text-2xl text-pink-200 mb-4">{t("dreamLibrary.interpretation")}</h2>
           <p className="text-gray-200 font-medium text-lg leading-relaxed">{dream.interpretation}</p>
         </div>
@@ -85,7 +85,7 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
           </div>
         </section>
 
-        <div className="bg-black/45 backdrop-blur-md rounded-lg p-6">
+        <div className="bg-slate-800/50 backdrop-blur-md rounded-lg p-6">
           <h2 className="text-2xl text-pink-200 mb-4">{t("dreamLibrary.cardMood")}</h2>
           <p className="text-gray-200 font-medium text-lg">{dream.mood}</p>
         </div>

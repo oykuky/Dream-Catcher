@@ -85,7 +85,7 @@ function DreamForm() {
 
   return (
     <>
-     <NeonGradientCard className="hover:scale-105 transition duration-300 max-w-2xl h-[580px] flex items-center justify-center text-center mt-12">
+     <NeonGradientCard className="max-w-2xl h-[40rem] flex items-center justify-center text-center mt-12">
         <form onSubmit={handleSubmit} className="flex flex-col gap-10 p-2 text-white font-semibold">
           <span className=" text-slate-200 text-center font-semibold">
             {t("dreamform.dreamText")}
