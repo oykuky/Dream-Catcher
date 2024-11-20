@@ -49,7 +49,7 @@ export default function Dream({ params }: { params: { slug: string } }) {
  
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="">
     {loading ? (
       <div className="animate-spin text-neonPink text-4xl">
         <FaSpinner />
