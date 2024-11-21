@@ -55,21 +55,21 @@ export default function DreamLibrary() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center min-h-screen gap-6 p-4 bg-gradient-to-tl from-neonPink via-purple-900 to-black"
+      className="flex flex-col items-center min-h-screen gap-6 p-4 bg-gradient-to-tl from-neonPink via-darkLila to-black"
     >
       <nav className="flex justify-between w-full max-w-7xl">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => router.push("/")}
-          className="text-pink-300 flex items-center justify-center text-3xl w-12 h-12 rounded-full bg-black/45 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
+          className="text-pink-300 flex items-center justify-center text-3xl w-12 h-12 rounded-full bg-white/5 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
         >
           <IoIosArrowBack />
         </motion.button>
       </nav>
 
-      <div className="bg-transparent flex justify-center items-center w-full max-w-2xl h-20 ">
-        <div className="flex justify-center items-center my-5">
+      <div className="bg-transparent flex justify-center items-center w-full max-w-2xl mb-5">
+        <div className="flex justify-center items-center">
           <SparklesText text="Rüyalarım" />
         </div>
       </div>
