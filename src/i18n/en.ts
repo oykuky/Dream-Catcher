@@ -50,6 +50,8 @@ const en:LocalizationKeys = {
     interpretation:"Interpretation",
     emotionalAnalysis:"Emotional Analysis",
     practicalAdvice:"Practical Advice",
+    deleteToast: "Success",
+    deleteDesc:"Your dream deleted.",
   },
   };
   

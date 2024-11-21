@@ -48,6 +48,8 @@ dreamform: {
     interpretation:"Yorumlama",
     emotionalAnalysis:"Duygusal Analiz",
     practicalAdvice:"Pratik Tavsiye",
+    deleteToast: "Başarılı",
+    deleteDesc:"Rüya kartınız silindi.",
   },
 };
 

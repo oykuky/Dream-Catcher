@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl"
 import { IntDream } from "@/app/[locale]/dreamLibrary/page"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+import { MdDelete } from "react-icons/md";
+import { useToast } from "@/hooks/use-toast"
 
 interface DreamCardProps {
   dream: IntDream
@@ -13,16 +15,45 @@ interface DreamCardProps {
 const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
   const t = useTranslations()
   const router = useRouter()
+  const { toast } = useToast();
+
+  const deleteDream = async (slug: string) => {
+    try {
+      const response = await fetch("/api/deleteDream", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ slug }), 
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to delete dream");
+      }
+  
+      const res = await response.json();
+      
+      toast({
+        title: t("dreamLibrary.deleteToast"),
+        description: t("dreamLibrary.deleteDesc"),
+      });
+      console.log(res.message); 
+      router.push("/dreamLibrary");
+    } catch (error) {
+      console.error("Error deleting dream:", error);
+    }
+  };
 
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
-      onClick={() => router.push(`/dreamLibrary/${dream.slug}`)}
       className="flex flex-col w-full max-w-md bg-slate-800/50 hover:bg-transparent rounded-2xl p-6 gap-4 shadow-lg hover:shadow-2xl hover:shadow-neonPink cursor-pointer overflow-hidden"
     >
       <div className="text-center space-y-2">
-        <div className="text-darkPink text-lg">✩₊˚.⋆☾⋆⁺₊✧</div>
+        <div onClick={() => router.push(`/dreamLibrary/${dream.slug}`)} className="text-darkPink text-lg"> Dream Card Detail ✩₊˚.⋆☾⋆⁺₊✧
+
+        </div>
         <h2 className="font-bold text-2xl text-white">
           {t("dreamLibrary.cardContent")}
         </h2>
@@ -73,6 +104,10 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
             )
           )}
         </div>
+      </div>
+
+      <div onClick={() => deleteDream(dream.slug)}  className="bg-white/20 hover:bg-white/40 rounded-full p-1 w-10 h-10 flex mt-auto justify-center items-center">
+      <MdDelete className="text-xl text-pink-200"/>
       </div>
     </motion.div>
   )
