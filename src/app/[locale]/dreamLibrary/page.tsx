@@ -7,6 +7,7 @@ import { TbHomeStar } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { IoIosArrowBack } from "react-icons/io";
+import { useTranslations } from "next-intl";
 
 export interface IntDream {
   slug: string;
@@ -23,6 +24,7 @@ export default function DreamLibrary() {
   const [dreams, setDreams] = useState<IntDream[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const t = useTranslations();
 
   async function fetchDreams() {
     try {
@@ -70,7 +72,7 @@ export default function DreamLibrary() {
 
       <div className="bg-transparent flex justify-center items-center w-full max-w-2xl mb-5">
         <div className="flex justify-center items-center">
-          <SparklesText text="Rüyalarım" />
+          <SparklesText text={t("dreamLibrary.mydreamsTitle")}/>
         </div>
       </div>
       {loading ? (
@@ -80,7 +82,7 @@ export default function DreamLibrary() {
       ) : (
         <div className="flex flex-wrap justify-center gap-9">
           {dreams.map((dream, index: number) => (
-            <DreamCard key={index} dream={dream} />
+            <DreamCard key={index} dream={dream} fetchDreams={fetchDreams} />
           ))}
         </div>
       )}

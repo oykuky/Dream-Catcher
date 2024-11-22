@@ -1,20 +1,23 @@
-'use client'
+"use client";
 
-import React from "react"
-import { useTranslations } from "next-intl"
-import { IntDream } from "@/app/[locale]/dreamLibrary/page"
-import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
+import React from "react";
+import { useTranslations } from "next-intl";
+import { IntDream } from "@/app/[locale]/dreamLibrary/page";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
+import { FcCloseUpMode } from "react-icons/fc";
+import { RxChevronRight } from "react-icons/rx";
 
 interface DreamCardProps {
-  dream: IntDream
+  dream: IntDream;
+  fetchDreams: () => void;
 }
 
-const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
-  const t = useTranslations()
-  const router = useRouter()
+const DreamCard: React.FC<DreamCardProps> = ({ dream, fetchDreams}) => {
+  const t = useTranslations();
+  const router = useRouter();
   const { toast } = useToast();
 
   const deleteDream = async (slug: string) => {
@@ -24,21 +27,21 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ slug }), 
+        body: JSON.stringify({ slug }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to delete dream");
       }
-  
+
       const res = await response.json();
-      
+      console.log(res.message);
+
       toast({
         title: t("dreamLibrary.deleteToast"),
         description: t("dreamLibrary.deleteDesc"),
       });
-      console.log(res.message); 
-      router.push("/dreamLibrary");
+      fetchDreams();
     } catch (error) {
       console.error("Error deleting dream:", error);
     }
@@ -51,8 +54,14 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
       className="flex flex-col w-full max-w-md bg-slate-800/50 hover:bg-transparent rounded-2xl p-6 gap-4 shadow-lg hover:shadow-2xl hover:shadow-neonPink cursor-pointer overflow-hidden"
     >
       <div className="text-center space-y-2">
-        <div onClick={() => router.push(`/dreamLibrary/${dream.slug}`)} className="text-darkPink text-lg"> Dream Card Detail ✩₊˚.⋆☾⋆⁺₊✧
-
+        <div
+          onClick={() => router.push(`/dreamLibrary/${dream.slug}`)}
+          className="text-darkPink ml-auto text-3xl bg-white/55 rounded-full w-fit hover:bg-white/45"
+        >
+          <div className="flex p-1">
+            <FcCloseUpMode />
+            <RxChevronRight />
+          </div>
         </div>
         <h2 className="font-bold text-2xl text-white">
           {t("dreamLibrary.cardContent")}
@@ -95,9 +104,13 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
                 key={index}
                 className="bg-black/30 rounded-xl p-4 hover:bg-opacity-80 transition-colors duration-300"
               >
-                <h4 className="font-medium text-lightPink mb-2">{symbol.symbol}</h4>
+                <h4 className="font-medium text-lightPink mb-2">
+                  {symbol.symbol}
+                </h4>
                 <div className="text-gray-300 line-clamp-2">
-                  <span className="text-gray-100 block mb-1">✩ {t("dreamLibrary.cardMeanings")} ✩</span>
+                  <span className="text-gray-100 block mb-1">
+                    ✩ {t("dreamLibrary.cardMeanings")} ✩
+                  </span>
                   {symbol.meaning}
                 </div>
               </div>
@@ -106,11 +119,14 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream }) => {
         </div>
       </div>
 
-      <div onClick={() => deleteDream(dream.slug)}  className="bg-white/20 hover:bg-white/40 rounded-full p-1 w-10 h-10 flex mt-auto justify-center items-center">
-      <MdDelete className="text-xl text-pink-200"/>
+      <div
+        onClick={() => deleteDream(dream.slug)}
+        className="bg-white/20 hover:bg-white/40 rounded-full p-1 w-10 h-10 flex mt-auto justify-center items-center"
+      >
+        <MdDelete className="text-xl text-pink-200" />
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default DreamCard
+export default DreamCard;

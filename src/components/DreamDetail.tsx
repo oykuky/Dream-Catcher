@@ -33,6 +33,7 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
         >
           <IoIosArrowBack />
         </motion.button>
+        <p>✩₊˚.⋆☾⋆⁺₊✧</p>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
