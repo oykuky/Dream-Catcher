@@ -50,6 +50,8 @@ dreamform: {
     practicalAdvice:"Pratik Tavsiye",
     deleteToast: "Başarılı",
     deleteDesc:"Rüya kartınız silindi.",
+    cardTooltip:"Rüya Detayına Git",
+    deletecardTooltip:"Rüya Kartını sil!",
   },
 };
 

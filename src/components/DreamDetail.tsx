@@ -7,6 +7,7 @@ import React from "react"
 import { TbHomeStar } from "react-icons/tb"
 import { IoIosArrowBack } from "react-icons/io"
 import { motion } from "framer-motion"
+import { TbMoodPuzzled } from "react-icons/tb";
 
 interface DreamCardProps {
   dream: IntDream
@@ -87,7 +88,9 @@ const DreamDetail: React.FC<DreamCardProps> = ({ dream }) => {
         </section>
 
         <div className="bg-slate-800/50 backdrop-blur-md rounded-lg p-6">
-          <h2 className="text-2xl text-pink-200 mb-4">{t("dreamLibrary.cardMood")}</h2>
+          <h2 className="flex justify-between text-2xl text-pink-200 mb-4">{t("dreamLibrary.cardMood")}
+            <span><TbMoodPuzzled className="text-neonPink text-3xl"/></span>
+          </h2>
           <p className="text-gray-200 font-medium text-lg">{dream.mood}</p>
         </div>
 

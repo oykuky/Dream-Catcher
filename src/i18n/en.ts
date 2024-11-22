@@ -52,6 +52,8 @@ const en:LocalizationKeys = {
     practicalAdvice:"Practical Advice",
     deleteToast: "Success",
     deleteDesc:"Your dream deleted.",
+    cardTooltip:"Go to Dream Detail",
+    deletecardTooltip:"Delete your Dream Card!",
   },
   };
   

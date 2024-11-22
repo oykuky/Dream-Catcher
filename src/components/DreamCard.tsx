@@ -9,13 +9,19 @@ import { MdDelete } from "react-icons/md";
 import { useToast } from "@/hooks/use-toast";
 import { FcCloseUpMode } from "react-icons/fc";
 import { RxChevronRight } from "react-icons/rx";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface DreamCardProps {
   dream: IntDream;
   fetchDreams: () => void;
 }
 
-const DreamCard: React.FC<DreamCardProps> = ({ dream, fetchDreams}) => {
+const DreamCard: React.FC<DreamCardProps> = ({ dream, fetchDreams }) => {
   const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
@@ -51,18 +57,27 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream, fetchDreams}) => {
     <motion.div
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col w-full max-w-md bg-slate-800/50 hover:bg-transparent rounded-2xl p-6 gap-4 shadow-lg hover:shadow-2xl hover:shadow-neonPink cursor-pointer overflow-hidden"
+      className="flex flex-col w-full max-w-md bg-slate-800/50 hover:bg-transparent rounded-2xl p-6 gap-4 shadow-lg hover:shadow-2xl hover:shadow-neonPink cursor-pointer overflow-visible"
     >
       <div className="text-center space-y-2">
-        <div
-          onClick={() => router.push(`/dreamLibrary/${dream.slug}`)}
-          className="text-darkPink ml-auto text-3xl bg-white/55 rounded-full w-fit hover:bg-white/45"
-        >
-          <div className="flex p-1">
-            <FcCloseUpMode />
-            <RxChevronRight />
-          </div>
-        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                onClick={() => router.push(`/dreamLibrary/${dream.slug}`)}
+                className="text-darkPink ml-auto text-3xl bg-white/55 rounded-full w-fit hover:bg-white/45"
+              >
+                <div className="flex">
+                  <FcCloseUpMode />
+                  <RxChevronRight />
+                </div>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent className="bg-neonPink/30 text-md text-white ">
+              <p>{t("dreamLibrary.cardTooltip")}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <h2 className="font-bold text-2xl text-white">
           {t("dreamLibrary.cardContent")}
         </h2>
@@ -119,12 +134,21 @@ const DreamCard: React.FC<DreamCardProps> = ({ dream, fetchDreams}) => {
         </div>
       </div>
 
-      <div
-        onClick={() => deleteDream(dream.slug)}
-        className="bg-white/20 hover:bg-white/40 rounded-full p-1 w-10 h-10 flex mt-auto justify-center items-center"
-      >
-        <MdDelete className="text-xl text-pink-200" />
-      </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div
+              onClick={() => deleteDream(dream.slug)}
+              className="bg-white/20 hover:bg-white/40 rounded-full p-1 w-10 h-10 flex mt-auto justify-center items-center"
+            >
+              <MdDelete className="text-xl text-pink-200" />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent className="bg-neonPink/30 text-md text-white ">
+            <p>{t("dreamLibrary.deletecardTooltip")}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </motion.div>
   );
 };
