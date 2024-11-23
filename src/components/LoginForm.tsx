@@ -8,6 +8,7 @@ import BlurIn from "@/components/ui/blur-in";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 interface LoginFormInputs {
   username: string;
@@ -16,16 +17,39 @@ interface LoginFormInputs {
 
 function LoginForm() {
   const t = useTranslations();
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
+  const router = useRouter();
 
-  const onSubmit = (data: LoginFormInputs) => {
+  const onSubmit = async (data: LoginFormInputs) => {
     console.log(data);
- 
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        console.log("Sign In successful");
+        router.push("/");
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) {}
   };
 
   return (
     <div className="w-full flex items-center justify-center">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-5 w-full"
+      >
         <BlurIn
           word={t("login.title")}
           className="text-white dark:text-pink-700"
@@ -41,7 +65,9 @@ function LoginForm() {
             {...register("username", { required: "Username is required" })}
             className="rounded-lg h-12 px-2 text-xs bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
-          {errors.username && <p className="text-red-500 text-xs">{errors.username.message}</p>}
+          {errors.username && (
+            <p className="text-red-500 text-xs">{errors.username.message}</p>
+          )}
         </div>
         <div className="space-y-1">
           <Label htmlFor="password" className="text-white text-sm">
@@ -54,7 +80,9 @@ function LoginForm() {
             {...register("password", { required: "Password is required" })}
             className="rounded-lg h-12 px-2 text-xs bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
-          {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="text-red-500 text-xs">{errors.password.message}</p>
+          )}
         </div>
         <Button
           type="submit"
@@ -74,4 +102,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
