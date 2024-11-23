@@ -1,4 +1,5 @@
 "use client";
+import { useState } from 'react';
 
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
@@ -8,6 +9,7 @@ import BlurIn from "@/components/ui/blur-in";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useRouter } from 'next/navigation';
 
 interface RegisterFormInputs {
   username: string;
@@ -18,13 +20,33 @@ interface RegisterFormInputs {
 
 function RegisterForm() {
   const t = useTranslations();
+  const router = useRouter();
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormInputs>();
 
-  const onSubmit = (data: RegisterFormInputs) => {
+  const onSubmit = async (data: RegisterFormInputs) => {
     console.log(data);
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
   
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Registration successful');
+        router.push('/login');
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) {
+      console.error('Registration failed', error);
+    }
   };
 
+  
   return (
     <div className="w-full flex items-center justify-center">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full">
@@ -75,7 +97,7 @@ function RegisterForm() {
             {...register("password", { 
               required: "Password is required",
               minLength: {
-                value: 8,
+                value: 4,
                 message: "Password must be at least 8 characters long"
               }
             })}
