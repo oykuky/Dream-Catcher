@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 * {
-  scrollbar-width: thin;
-  scrollbar-color: transparent #111827;
+  scrollbar-width: none;
+  scrollbar-color: transparent  ;
 }
 
 body{
