@@ -7,10 +7,11 @@ interface TokenPayload {
   username: string;
 }
 
+//jwt oluşturma
 export function signToken(payload: TokenPayload, expiresIn: string = '1h'): string {
-  return jwt.sign(payload, secret, { expiresIn } as SignOptions);
+  return jwt.sign(payload, secret, { expiresIn } as SignOptions); //Token imzalama
 }
-
+//jwt doğrulama
 export function verifyToken(token: string): JwtPayload | string {
-  return jwt.verify(token, secret);
+  return jwt.verify(token, secret); //Token onaylama
 }
