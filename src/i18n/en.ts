@@ -12,9 +12,12 @@ const en:LocalizationKeys = {
     errortoastDesc:"Please enter your dream and at least one keyword.",
     sucesstoastTitle:"Success!",
     sucesstoastDesc:"Your dream interpreted and recorded.",
+    unauthorizedToast: "Not logged in",
+    pleaseLoginToast: "Please log in!"
   },
   header:{
     mydreams:"My Dreams",
+    logout:"Logout",
   },
   login:{
     title:"Login",

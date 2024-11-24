@@ -10,9 +10,12 @@ dreamform: {
     errortoastDesc:"Lütfen rüyanızı ve en az bir anahtar kelime girin.",
     sucesstoastTitle:"Başarılı",
     sucesstoastDesc:"Rüyanız yorumlandı ve kaydedildi.",
+    unauthorizedToast:"Oturum açılmamış",
+    pleaseLoginToast:"Lütfen oturum açın!"
   },
   header:{
-    mydreams:"Rüyalarım"
+    mydreams:"Rüyalarım",
+    logout:"Çıkış yap",
   },
   login:{
     title:"Giriş Yap",

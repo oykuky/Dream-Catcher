@@ -1,22 +1,20 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
 import { Dream } from "@/lib/models";
 import connectToDb from "@/lib/utils";
-// import { getSession } from "next-auth/react";
-import mongoose from "mongoose";
+import { AuthenticatedRequest, withAuth } from "@/lib/middleware";
 
-export default async function handler(
-  req: NextApiRequest,
+
+async function handler(
+  req: AuthenticatedRequest,
   res: NextApiResponse
 ) {
-
   if (req.method === "POST") {
     try {
       await connectToDb();
-      // const session = await getSession({ req });
-      // if (!session) {
-      //   console.log("Unauthorized");
-      //   return res.status(401).json({ message: "Unauthorized" });
-      // }
+
+      if (!req.user) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
 
       const {
         slug,
@@ -30,9 +28,8 @@ export default async function handler(
       } = req.body;
 
       const dream = await Dream.create({
-        // userId: session.user.id, 
+        userId: req.user.id,
         slug,
-        userId: new mongoose.Types.ObjectId(), //geçiçi oturum işlemleri tamamlanana kadar
         content,
         keywords,
         interpretation,
@@ -42,6 +39,7 @@ export default async function handler(
         symbols,
         createdAt: new Date(),
       });
+
       res.status(201).json(dream);
     } catch (err) {
       console.error("Error saving dream:", err);
@@ -50,5 +48,6 @@ export default async function handler(
   } else {
     return res.status(500).json({ error: "Wrong Request." });
   }
-
 }
+
+export default withAuth(handler);

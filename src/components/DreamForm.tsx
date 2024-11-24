@@ -1,6 +1,6 @@
-"use client";
+"use client"
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { interpretDream } from "@/service/AiModal";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale, useTranslations } from "next-intl";
@@ -13,8 +13,20 @@ function DreamForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const t = useTranslations();
-  const locale = useLocale(); // Aktif dil alınır
+  const locale = useLocale();
   const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+      toast({
+        title: t("dreamform.unauthorizedToast"),
+        description: t("dreamform.pleaseLoginToast"),
+        variant: "destructive",
+      });
+    }
+  }, []);
 
   const handleKeywordsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -24,6 +36,8 @@ function DreamForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const token = localStorage.getItem('token');
+ 
     if (!dreamTxt.trim() || keywords.length === 0) {
       toast({
         title: "Hata",
@@ -36,15 +50,16 @@ function DreamForm() {
     try {
       setIsLoading(true);
       const interpretation = await interpretDream(dreamTxt, keywords, locale);
-      const slug =
-        slugify(dreamTxt.substring(0, 30), { lower: true, strict: true }) +
-        "-" +
-        Date.now();
+      const slug = slugify(dreamTxt.substring(0, 30), { 
+        lower: true, 
+        strict: true 
+      }) + "-" + Date.now();
 
       const response = await fetch("/api/dreamApi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
           slug,
@@ -58,24 +73,25 @@ function DreamForm() {
         }),
       });
 
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "the dream could not be recorded");
+      }
+
       setDreamTxt("");
       setKeywords([]);
-
-      if (!response.ok) {
-        throw new Error("the dream could not be recorded");
-      }
 
       toast({
         title: t("dreamform.sucesstoastTitle"),
         description: t("dreamform.sucesstoastDesc"),
       });
 
-      router.push(`${locale}/dreamLibrary`);
-    } catch (error) {
+      router.push(`/dreamLibrary/${slug}`);
+    } catch (error: any) {
       console.error("Error:", error);
       toast({
         title: t("dreamform.errortoastTitle"),
-        description: t("dreamform.sucesstoastDesc"),
+        description: error.message || t("dreamform.sucesstoastDesc"),
         variant: "destructive",
       });
     } finally {
@@ -84,9 +100,8 @@ function DreamForm() {
   };
 
   return (
-    <>
-      <NeonGradientCard className="max-w-2xl h-[40rem] flex items-center justify-center text-center mt-12">
-        <form
+    <NeonGradientCard className="max-w-2xl h-[40rem] flex items-center justify-center text-center mt-12">
+      <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-10 p-2 text-white font-semibold"
         >
@@ -117,8 +132,7 @@ function DreamForm() {
             {isLoading ? t("dreamform.buttonLoading") : t("dreamform.button")}
           </button>
         </form>
-      </NeonGradientCard>
-    </>
+    </NeonGradientCard>
   );
 }
 
