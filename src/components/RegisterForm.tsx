@@ -1,5 +1,8 @@
 "use client";
+
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
@@ -9,12 +12,20 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 
-interface RegisterFormInputs {
-  username: string;
-  email: string;
-  password: string;
-  passwordRepeat: string;
-}
+const registerSchema = z
+  .object({
+    username: z.string().min(1, "Username is required"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(4, "Password must be at least 4 characters long"),
+    passwordRepeat: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.password === data.passwordRepeat, {
+    message: "Passwords do not match",
+    path: ["passwordRepeat"],
+  }
+);
+
+type RegisterFormInputs = z.infer<typeof registerSchema>;
 
 function RegisterForm() {
   const t = useTranslations();
@@ -23,7 +34,9 @@ function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormInputs>();
+  } = useForm<RegisterFormInputs>({
+    resolver: zodResolver(registerSchema),
+  });
 
   const onSubmit = async (data: RegisterFormInputs) => {
     console.log(data);
@@ -66,7 +79,7 @@ function RegisterForm() {
             id="username"
             type="text"
             placeholder={t("register.placehldName")}
-            {...register("username", { required: "Username is required" })}
+            {...register("username")}
             className="rounded-lg h-12 text-xs px-1 bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
           {errors.username && (
@@ -81,13 +94,7 @@ function RegisterForm() {
             id="email"
             type="email"
             placeholder={t("register.placehldEmail")}
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "Invalid email address",
-              },
-            })}
+            {...register("email")}
             className="rounded-lg h-12 text-xs px-1 bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
           {errors.email && (
@@ -102,13 +109,7 @@ function RegisterForm() {
             id="password"
             type="password"
             placeholder={t("register.placehldPassword")}
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 4,
-                message: "Password must be at least 8 characters long",
-              },
-            })}
+            {...register("password")}
             className="rounded-lg h-12 text-xs px-1 bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
           {errors.password && (
@@ -123,11 +124,7 @@ function RegisterForm() {
             id="passwordRepeat"
             type="password"
             placeholder={t("register.placehldconfirmpass")}
-            {...register("passwordRepeat", {
-              required: "Please confirm your password",
-              validate: (value, formValues) =>
-                value === formValues.password || "Passwords do not match",
-            })}
+            {...register("passwordRepeat")}
             className="rounded-lg h-12 text-xs px-1 bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
           {errors.passwordRepeat && (

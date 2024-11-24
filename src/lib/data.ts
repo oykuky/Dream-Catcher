@@ -1,12 +1,12 @@
 import { Dream } from "./models";
 import connectToDb from "./utils";
 
-export const getDreams = async () => {
+export const getDreams = async (userId: string) => {
   try {
     console.log("Connecting to database...");
     await connectToDb();
     console.log("Connected to the database, dreams are fetched...");
-    const dreams = await Dream.find();
+    const dreams = await Dream.find({ userId: userId });
     return dreams;
   } catch (err) {
     console.error("Error occurred while fetching dreams:", err);

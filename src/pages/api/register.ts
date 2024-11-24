@@ -25,19 +25,19 @@ export default async function handler(
 
     try {
       await connectToDb();
+      console.log("Checking if user exists...");
       const existingUser = await User.findOne({ email });
-      console.log("existing user", existingUser);
 
       if (existingUser) {
+        console.log("User already exists");
         res.status(400).json({ message: "User already exists" });
         return;
       }
 
+      console.log("Hashing password...");
       const hashedPassword = await bcrypt.hash(password, 10);
-      if (!hashedPassword) {
-        res.status(500).json({ message: "Password hashing failed" });
-        return;
-      }
+
+      console.log("Creating user...");
       const newUser = await User.create({
         username,
         email,
@@ -45,9 +45,18 @@ export default async function handler(
       });
       console.log("new user", newUser);
 
-      res.status(201).json({ message: "User registered successfully" });
-    } catch (error) {
-      res.status(500).json({ message: "Something went wrong" });
+      res.status(201).json({ 
+    message: "User registered successfully",
+        user: {
+          id: newUser._id,
+          username: newUser.username,
+          email: newUser.email
+        }
+      });
+    } catch (error: any) {
+      console.error("Error creating user:", error.message);
+      console.error("Stack trace:", error.stack);
+      res.status(500).json({ message: "Something went wrong", error: error.message });
     }
   } else {
     res.status(405).json({ message: "Method not allowed" });

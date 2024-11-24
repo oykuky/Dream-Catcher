@@ -1,6 +1,8 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
@@ -10,19 +12,23 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 
-interface LoginFormInputs {
-  username: string;
-  password: string;
-}
+const loginSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
+});
+
+type LoginFormInputs = z.infer<typeof loginSchema>;
 
 function LoginForm() {
   const t = useTranslations();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>();
-  const router = useRouter();
+  } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const onSubmit = async (data: LoginFormInputs) => {
     console.log(data);
@@ -36,12 +42,15 @@ function LoginForm() {
       });
       const result = await response.json();
       if (response.ok) {
+        localStorage.setItem("token", result.token); 
         console.log("Sign In successful");
         router.push("/");
       } else {
         console.error(result.message);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Login failed", error);
+    }
   };
 
   return (
@@ -62,7 +71,7 @@ function LoginForm() {
             id="username"
             type="text"
             placeholder={t("login.placehldName")}
-            {...register("username", { required: "Username is required" })}
+            {...register("username")}
             className="rounded-lg h-12 px-2 text-xs bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
           {errors.username && (
@@ -77,7 +86,7 @@ function LoginForm() {
             id="password"
             type="password"
             placeholder={t("login.placehldPassword")}
-            {...register("password", { required: "Password is required" })}
+            {...register("password")}
             className="rounded-lg h-12 px-2 text-xs bg-gray-800 text-gray-200 border border-gray-700 focus:border-pink-600 focus:outline-none"
           />
           {errors.password && (

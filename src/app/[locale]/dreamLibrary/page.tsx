@@ -26,12 +26,19 @@ export default function DreamLibrary() {
   const router = useRouter();
   const t = useTranslations();
 
+  
   async function fetchDreams() {
     try {
+      const token = localStorage.getItem("token"); 
+      if (!token) {
+        return router.push("/login"); 
+      }
+
       const response = await fetch("/api/getDream", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`, 
         },
       });
 
@@ -72,7 +79,7 @@ export default function DreamLibrary() {
 
       <div className="bg-transparent flex justify-center items-center w-full max-w-2xl mb-5">
         <div className="flex justify-center items-center">
-          <SparklesText text={t("dreamLibrary.mydreamsTitle")}/>
+          <SparklesText text={t("dreamLibrary.mydreamsTitle")} />
         </div>
       </div>
       {loading ? (

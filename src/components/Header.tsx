@@ -2,25 +2,36 @@
 import React from "react";
 import SparklesText from "@/components/ui/sparkles-text";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const t = useTranslations();
-  const locale = useLocale()
+  const router = useRouter();
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
   return (
-    <div className="bg-gray-950 flex flex-col justify-center items-center w-3/4 rounded-2xl border-[3px] border-purple-800 mt-5 mb-10 ">
-      <div className="flex flex-col text-center font-bold gap-5">
-        <div className="flex justify-center items-center my-5">
-          <SparklesText text="Dream Catcher" />
-        </div>
-        <div className="mb-5">
-          <Link
-            href={`${locale}/dreamLibrary`}
-            className="text-white hover:text-purple-400 transition-colors duration-200"
-          >
-            {t("header.mydreams")}
-          </Link>
-        </div>
+    <div className="bg-gray-950 flex flex-row justify-between items-center w-full mb-10 py-10 px-5">
+      <div className="flex justify-center items-center pl-14">
+        <SparklesText text="Dream Catcher" />
+      </div>
+      <div className="flex flex-0 items-center justify-evenly gap-7 px-5 text-white font-semibold text-2xl ">
+        <Link
+          href={"/dreamLibrary"}
+          className="text-white hover:text-purple-400 hover:underline transition-colors duration-200"
+        >
+          {t("header.mydreams")}
+        </Link>
+        <Link
+          onClick={logOut}
+          href={"/login"}
+          className="text-white hover:text-purple-400 hover:underline transition-colors duration-200"
+        >
+          {t("header.logout")}
+        </Link>
       </div>
     </div>
   );
