@@ -28,6 +28,8 @@ const en:LocalizationKeys = {
     button:"Login",
     haveAccQ: "Don't you have an account?",
     span: "Sign up",
+    posterror: "Failed",
+    posterrordesc: "Failed to log in.",
   },
   register: {
     title: "Sign Up",

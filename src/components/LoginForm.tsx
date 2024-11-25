@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -20,6 +21,7 @@ const loginSchema = z.object({
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
 function LoginForm() {
+  const { toast } = useToast();
   const t = useTranslations();
   const router = useRouter();
   const {
@@ -46,7 +48,12 @@ function LoginForm() {
         console.log("Sign In successful");
         router.push("/");
       } else {
+        toast({
+          title: t("login.posterror"),
+          description: t("login.posterrordesc"),
+        });
         console.error(result.message);
+
       }
     } catch (error) {
       console.error("Login failed", error);

@@ -26,6 +26,8 @@ dreamform: {
     button:"Login",
     haveAccQ: "Hesabınız yok mu?",
     span: "Üye ol",
+    posterror:"Failed",
+    posterrordesc:"Giriş yapılamadı.",
   },
   register: {
     title: "Üye Ol",

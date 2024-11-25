@@ -4,15 +4,20 @@ import SparklesText from "@/components/ui/sparkles-text";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { usePathname } from "@/i18n";
 
 const Header = () => {
   const t = useTranslations();
   const router = useRouter();
+  const pathname = usePathname();
+
 
   const logOut = () => {
     localStorage.removeItem("token");
     router.push("/login");
   };
+
+
   return (
     <div className="bg-gray-950 flex flex-row justify-between items-center w-full mb-10 py-10 px-5">
       <div className="flex justify-center items-center pl-14">
@@ -32,6 +37,8 @@ const Header = () => {
         >
           {t("header.logout")}
         </Link>
+       
+    
       </div>
     </div>
   );
