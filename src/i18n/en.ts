@@ -44,6 +44,10 @@ const en:LocalizationKeys = {
     button: "Sign up",
     haveAccQ: "Do you have an account?",
     span: "Sign in",
+    successToast: "Successful",
+    successToastdesc: "Signed up.",
+    failToast:"Failed",
+    failToastdesc:"Failed to sign up !"
   },
   dreamLibrary:{
     mydreamsTitle: "My dreams",

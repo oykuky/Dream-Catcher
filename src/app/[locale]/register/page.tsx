@@ -1,8 +1,17 @@
+"use client";
 import RegisterForm from "@/components/RegisterForm";
 import ShineBorder from "@/components/ui/shine-border";
 import React from "react";
+import { Link, routing, usePathname } from "@/i18n";
+import { useLocale } from "next-intl";
 
 function register() {
+  const locale = useLocale();
+  const pathname = usePathname();
+  const locales = routing.locales; // tr,en
+  const otherLocale = locales.filter((l) => locale !== l)[0];
+  const language = locale == "tr" ? "TR" : "EN";
+
   return (
     <div className="flex justify-center items-center h-screen px-8 ">
       <ShineBorder
@@ -11,6 +20,13 @@ function register() {
       >
         <RegisterForm />
       </ShineBorder>
+      <Link
+        className="mt-auto mb-4 flex rounded-lg items-center justify-center border-[2px] border-pink-700 hover:bg-neonPink w-10 h-10 font-semibold text-white text-center"
+        href={pathname}
+        locale={otherLocale}
+      >
+        {language}
+      </Link>
     </div>
   );
 }

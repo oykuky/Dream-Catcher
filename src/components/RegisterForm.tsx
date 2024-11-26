@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const registerSchema = z
   .object({
@@ -22,14 +23,14 @@ const registerSchema = z
   .refine((data) => data.password === data.passwordRepeat, {
     message: "Passwords do not match",
     path: ["passwordRepeat"],
-  }
-);
+  });
 
 type RegisterFormInputs = z.infer<typeof registerSchema>;
 
 function RegisterForm() {
   const t = useTranslations();
   const router = useRouter();
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -51,9 +52,17 @@ function RegisterForm() {
 
       const result = await response.json();
       if (response.ok) {
+        toast({
+          title: t("register.successToast"),
+          description: t("register.successToastdesc"),
+        });
         console.log("Registration successful");
         router.push("/login");
       } else {
+        toast({
+          title: t("register.failToast"),
+          description: t("register.failToastdesc"),
+        });
         console.error(result.message);
       }
     } catch (error) {

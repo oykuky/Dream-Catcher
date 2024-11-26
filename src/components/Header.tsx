@@ -1,15 +1,20 @@
 "use client";
 import React from "react";
 import SparklesText from "@/components/ui/sparkles-text";
-import Link from "next/link";
+// import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { usePathname } from "@/i18n";
+import { Link, routing, usePathname } from "@/i18n";
+import { useLocale } from "next-intl";
 
 const Header = () => {
   const t = useTranslations();
   const router = useRouter();
+  const locale = useLocale();
   const pathname = usePathname();
+  const locales = routing.locales; // tr,en
+  const otherLocale = locales.filter((l) => locale !== l)[0];
+  const language = locale == "tr" ? "TR" : "EN";
 
 
   const logOut = () => {
@@ -37,7 +42,13 @@ const Header = () => {
         >
           {t("header.logout")}
         </Link>
-       
+        <Link
+        className="flex rounded-lg items-center justify-center border-[2px] border-pink-700 hover:bg-neonPink w-10 h-10 font-semibold text-white text-center"
+        href={pathname}
+        locale={otherLocale}
+      >
+        {language}
+      </Link>
     
       </div>
     </div>

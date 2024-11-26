@@ -42,6 +42,11 @@ dreamform: {
     button: "Üye ol",
     haveAccQ: "Hesabınız var mı?",
     span: "Giriş yap",
+    successToast:"Başarılı",
+    successToastdesc:"Üye olundu.",
+    failToast: "Başarısız",
+    failToastdesc: "Kaydolma işlemi başarısız oldu!"
+
   },
   dreamLibrary:{
     mydreamsTitle: "Rüyalarım",
