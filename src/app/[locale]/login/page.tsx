@@ -1,8 +1,18 @@
+"use client";
 import LoginForm from "@/components/LoginForm";
 import ShineBorder from "@/components/ui/shine-border";
+import { Link, routing, usePathname } from "@/i18n";
+import { useLocale } from "next-intl";
+
 import React from "react";
 
 function login() {
+  const locale = useLocale();
+  const pathname = usePathname();
+  const locales = routing.locales; // tr,en
+  const otherLocale = locales.filter((l) => locale !== l)[0];
+  const language = locale == "tr" ? "TR" : "EN";
+
   return (
     <div className="flex justify-center items-center h-screen px-8">
       <ShineBorder
@@ -11,6 +21,13 @@ function login() {
       >
         <LoginForm />
       </ShineBorder>
+      <Link
+        className="mt-auto mb-4 flex rounded-lg items-center justify-center border-[2px] border-pink-700 hover:bg-neonPink w-10 h-10 font-semibold text-white text-center"
+        href={pathname}
+        locale={otherLocale}
+      >
+        {language}
+      </Link>
     </div>
   );
 }
