@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import SparklesText from "@/components/ui/sparkles-text";
-// import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Link, routing, usePathname } from "@/i18n";
