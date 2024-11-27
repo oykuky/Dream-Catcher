@@ -9,6 +9,7 @@ import { useLocale } from "next-intl";
 
 const Header = () => {
   const t = useTranslations();
+  const token = localStorage.getItem("token");
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
@@ -16,12 +17,10 @@ const Header = () => {
   const otherLocale = locales.filter((l) => locale !== l)[0];
   const language = locale == "tr" ? "TR" : "EN";
 
-
   const logOut = () => {
     localStorage.removeItem("token");
     router.push("/login");
   };
-
 
   return (
     <div className="bg-gray-950 flex flex-row justify-between items-center w-full mb-10 py-10 px-5">
@@ -35,21 +34,22 @@ const Header = () => {
         >
           {t("header.mydreams")}
         </Link>
+        {token ? (
+          <Link
+            onClick={logOut}
+            href={"/login"}
+            className="text-white hover:text-purple-400 hover:underline transition-colors duration-200"
+          >
+            {t("header.logout")}
+          </Link>
+        ) : null}
         <Link
-          onClick={logOut}
-          href={"/login"}
-          className="text-white hover:text-purple-400 hover:underline transition-colors duration-200"
+          className="flex rounded-lg items-center justify-center border-[2px] border-pink-700 hover:bg-neonPink w-10 h-10 font-semibold text-white text-center"
+          href={pathname}
+          locale={otherLocale}
         >
-          {t("header.logout")}
+          {language}
         </Link>
-        <Link
-        className="flex rounded-lg items-center justify-center border-[2px] border-pink-700 hover:bg-neonPink w-10 h-10 font-semibold text-white text-center"
-        href={pathname}
-        locale={otherLocale}
-      >
-        {language}
-      </Link>
-    
       </div>
     </div>
   );
