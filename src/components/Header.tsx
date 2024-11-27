@@ -30,7 +30,7 @@ const Header = () => {
       <div className="flex flex-0 items-center justify-evenly gap-7 px-5 text-white font-semibold text-2xl ">
         <Link
           href={"/dreamLibrary"}
-          className="text-white hover:text-purple-400 hover:underline transition-colors duration-200"
+          className="text-white hover:text-neonPink hover:underline transition-colors duration-200"
         >
           {t("header.mydreams")}
         </Link>
@@ -38,7 +38,7 @@ const Header = () => {
           <Link
             onClick={logOut}
             href={"/login"}
-            className="text-white hover:text-purple-400 hover:underline transition-colors duration-200"
+            className="text-white hover:text-neonPink hover:underline transition-colors duration-200"
           >
             {t("header.logout")}
           </Link>

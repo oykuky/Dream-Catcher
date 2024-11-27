@@ -100,7 +100,7 @@ function DreamForm() {
   };
 
   return (
-    <NeonGradientCard className="max-w-2xl h-[40rem] flex items-center justify-center text-center mt-12">
+    <NeonGradientCard className="max-w-2xl h-[37rem] flex items-center justify-center text-center mt-12">
       <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-10 p-2 text-white font-semibold"
@@ -127,7 +127,7 @@ function DreamForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="text-white rounded-xl text-md font-semibold px-5 py-3 mt-12 text-center bg-transparent border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-violet-900 duration-300 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-white rounded-xl text-md font-semibold px-5 py-3 mt-12 text-center bg-transparent border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-neonPink duration-300 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? t("dreamform.buttonLoading") : t("dreamform.button")}
           </button>
