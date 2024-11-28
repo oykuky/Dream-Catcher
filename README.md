@@ -12,6 +12,7 @@ This project is an application that allows users to interpret and analyze dreams
 
 ### Tech Stack
 - Next.js
+- TypeScript
 - MongoDB
 - TailwindCss
 - ShadCN, MagicUI
