@@ -15,7 +15,7 @@ This project is an application that allows users to interpret and analyze dreams
 - TypeScript
 - MongoDB
 - TailwindCss
-- ShadCN, MagicUI
+- ShadCN && MagicUI
 
 ## Setup .env file
 ### :key: Environment Variables
