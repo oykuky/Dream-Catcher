@@ -22,7 +22,7 @@ function login() {
         <LoginForm />
       </ShineBorder>
       <Link
-        className="mt-auto mb-4 flex rounded-lg items-center justify-center border-[2px] border-pink-700 hover:bg-neonPink w-10 h-10 font-semibold text-white text-center"
+        className="absolute bottom-5 right-5 flex rounded-lg items-center justify-center border-[2px] border-pink-700 hover:bg-neonPink w-10 h-10 font-semibold text-white text-center"
         href={pathname}
         locale={otherLocale}
       >
