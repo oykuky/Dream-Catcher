@@ -1,4 +1,5 @@
-"use client"
+
+"use client";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import React, { useState, useEffect } from "react";
 import { interpretDream } from "@/service/AiModal";
@@ -17,9 +18,9 @@ function DreamForm() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      router.push('/login');
+      router.push("/login");
       toast({
         title: t("dreamform.unauthorizedToast"),
         description: t("dreamform.pleaseLoginToast"),
@@ -36,8 +37,8 @@ function DreamForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('token');
- 
+    const token = localStorage.getItem("token");
+
     if (!dreamTxt.trim() || keywords.length === 0) {
       toast({
         title: "Hata",
@@ -50,16 +51,19 @@ function DreamForm() {
     try {
       setIsLoading(true);
       const interpretation = await interpretDream(dreamTxt, keywords, locale);
-      const slug = slugify(dreamTxt.substring(0, 30), { 
-        lower: true, 
-        strict: true 
-      }) + "-" + Date.now();
+      const slug =
+        slugify(dreamTxt.substring(0, 30), {
+          lower: true,
+          strict: true,
+        }) +
+        "-" +
+        Date.now();
 
       const response = await fetch("/api/dreamApi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           slug,
@@ -100,10 +104,11 @@ function DreamForm() {
   };
 
   return (
-    <NeonGradientCard className="max-w-2xl h-[37rem] flex items-center justify-center text-center mt-12">
-      <form
+    <div className="w-full h-full  justify-center items-center flex p-10">
+      <NeonGradientCard className="max-w-2xl  flex items-center justify-center text-center ">
+        <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-10 p-2 text-white font-semibold"
+          className="flex flex-col gap-4 p-2 text-white font-semibold"
         >
           <span className=" text-slate-200 text-center font-semibold">
             {t("dreamform.dreamText")}
@@ -127,13 +132,15 @@ function DreamForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="text-white rounded-xl text-md font-semibold px-5 py-3 mt-12 text-center bg-transparent border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-neonPink duration-300 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-white rounded-xl text-md font-semibold px-5 py-3 mt-6 text-center bg-transparent border-pink-500 border-t-2 shadow-md shadow-pink-500 hover:scale-105 hover:bg-neonPink duration-300 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? t("dreamform.buttonLoading") : t("dreamform.button")}
           </button>
         </form>
-    </NeonGradientCard>
+      </NeonGradientCard>
+    </div>
   );
 }
 
 export default DreamForm;
+
